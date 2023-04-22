@@ -1,0 +1,16 @@
+name = "maps"
+version = "0.1.0"
+license = "MIT"
+author = "Tomohiro Degawa"
+maintainer = "degawa.tomohiro@gmail.com"
+copyright = "Copyright 2023, Tomohiro Degawa"
+[build]
+auto-executables = true
+auto-tests = true
+auto-examples = true
+[install]
+library = false
+
+[dependencies]
+stdlib = { git="https://github.com/fortran-lang/stdlib", branch="stdlib-fpm" }
+store =  { git="https://github.com/degawa/store"}
