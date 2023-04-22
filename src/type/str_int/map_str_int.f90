@@ -26,16 +26,6 @@ module map_str_int
         procedure, public, pass :: remove_key
         procedure, public, pass :: remove_if
 
-        ! procedure, public, pass :: contains_value
-        ! procedure, public, pass :: put_all
-        ! procedure, public, pass :: clear
-        ! procedure, public, pass :: keys
-        ! procedure, public, pass :: values
-        ! procedure, public, pass :: equals
-        ! procedure, public, pass :: hash_code
-        ! procedure, public, pass :: put_if_absent
-        ! procedure, public, pass :: replace
-        ! procedure, public, pass :: merge
         procedure, public, pass :: initialize
     end type map_str_int_type
 
