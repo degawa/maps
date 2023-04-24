@@ -5,7 +5,7 @@ A practical wrapper for stdlib_hashmaps
 use :: maps
 implicit none
 
-type(map_str_int_type) :: map
+type(char_to_int32_map_type) :: map
 
 call map%initialize()
 
