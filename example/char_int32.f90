@@ -1,4 +1,4 @@
-program map_char_int32
+program char_int32
     use, intrinsic :: iso_fortran_env
     use :: maps
     implicit none
@@ -18,4 +18,4 @@ program map_char_int32
     print *, map%contains("orange")
     call map%remove_if("orange", 150)
     print *, map%contains("orange")
-end program map_char_int32
+end program char_int32
