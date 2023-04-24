@@ -1,4 +1,4 @@
-module map_str_int
+module map_char_int32
     use, intrinsic :: iso_fortran_env
     use :: stdlib_hashmaps, only:hashmap_type, chaining_hashmap_type
     use :: stdlib_hashmap_wrappers, only:key_type, other_type
@@ -9,7 +9,7 @@ module map_str_int
     implicit none
     private
 
-    type, public :: map_str_int_type
+    type, public :: char_to_int32_map_type
         class(hashmap_type), allocatable :: map
     contains
         procedure, public, pass :: put
@@ -27,12 +27,12 @@ module map_str_int
         procedure, public, pass :: remove_if
 
         procedure, public, pass :: initialize
-    end type map_str_int_type
+    end type char_to_int32_map_type
 
 contains
     subroutine put(this, key, value, status)
         implicit none
-        class(map_str_int_type), intent(inout) :: this
+        class(char_to_int32_map_type), intent(inout) :: this
         character(*), intent(in) :: key
         integer(int32), intent(in) :: value
         integer(int32), intent(out), optional :: status
@@ -42,7 +42,7 @@ contains
 
     function get_value(this, key) result(val)
         implicit none
-        class(map_str_int_type), intent(inout) :: this
+        class(char_to_int32_map_type), intent(inout) :: this
         character(*), intent(in) :: key
         integer(int32) :: val
 
@@ -56,7 +56,7 @@ contains
 
     function get_or_default(this, key, default) result(val)
         implicit none
-        class(map_str_int_type), intent(inout) :: this
+        class(char_to_int32_map_type), intent(inout) :: this
         character(*), intent(in) :: key
         integer(int32), intent(in) :: default
         integer(int32) :: val
@@ -68,7 +68,7 @@ contains
 
     function size(this)
         implicit none
-        class(map_str_int_type), intent(in) :: this
+        class(char_to_int32_map_type), intent(in) :: this
         integer(int32) :: size
 
         size = this%map%entries()
@@ -81,7 +81,7 @@ contains
 
     function is_empty(this)
         implicit none
-        class(map_str_int_type), intent(in) :: this
+        class(char_to_int32_map_type), intent(in) :: this
         logical :: is_empty
         is_empty = (this%size() == 0)
     end function is_empty
@@ -89,7 +89,7 @@ contains
     function contains_key(this, key)
         use :: stdlib_hashmap_wrappers, only:set
         implicit none
-        class(map_str_int_type), intent(inout) :: this
+        class(char_to_int32_map_type), intent(inout) :: this
         character(*), intent(in) :: key
         logical :: contains_key
 
@@ -100,7 +100,7 @@ contains
         use :: stdlib_hashmap_wrappers, only:set
         use :: store_proc
         implicit none
-        class(map_str_int_type), intent(inout) :: this
+        class(char_to_int32_map_type), intent(inout) :: this
         character(*), intent(in) :: key
         integer(int32), intent(out), optional :: status
 
@@ -117,7 +117,7 @@ contains
     subroutine remove_if(this, key, value, status)
         use :: stdlib_hashmap_wrappers, only:set
         implicit none
-        class(map_str_int_type), intent(inout) :: this
+        class(char_to_int32_map_type), intent(inout) :: this
         character(*), intent(in) :: key
         integer(int32), intent(in) :: value
         integer(int32), intent(out), optional :: status
@@ -136,7 +136,7 @@ contains
         use :: stdlib_optval
         use :: stdlib_ascii
         implicit none
-        class(map_str_int_type), intent(inout) :: this
+        class(char_to_int32_map_type), intent(inout) :: this
         character(*), intent(in), optional :: hashmap
         character(*), intent(in), optional :: hasher
         integer(int32), intent(in), optional :: slots_bits
@@ -157,4 +157,4 @@ contains
 
         call initialize_map(this%map, hasher, slots_bits, status)
     end subroutine initialize
-end module map_str_int
+end module map_char_int32

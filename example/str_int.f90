@@ -1,9 +1,9 @@
-program map_str_int
+program map_char_int32
     use, intrinsic :: iso_fortran_env
     use :: maps
     implicit none
 
-    type(map_str_int_type) :: map
+    type(char_to_int32_map_type) :: map
 
     call map%initialize()
 
@@ -18,4 +18,4 @@ program map_str_int
     print *, map%contains("orange")
     call map%remove_if("orange", 150)
     print *, map%contains("orange")
-end program map_str_int
+end program map_char_int32

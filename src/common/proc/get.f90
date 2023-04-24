@@ -6,11 +6,11 @@ module maps_common_proc_get
     public :: get_other
 
     interface get_other
-        procedure :: get_other_str
+        procedure :: get_other_char
     end interface
 contains
     !>gets data from the hashmap
-    subroutine get_other_str(map, key, other)
+    subroutine get_other_char(map, key, other)
         use :: stdlib_hashmap_wrappers, only:set, get
         implicit none
         class(hashmap_type), intent(inout) :: map
@@ -23,5 +23,5 @@ contains
         call set(hash_key, trim(key))
         call map%get_other_data(hash_key, hash_other)
         call get(hash_other, other)
-    end subroutine get_other_str
+    end subroutine get_other_char
 end module maps_common_proc_get

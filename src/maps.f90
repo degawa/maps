@@ -1,3 +1,3 @@
 module maps
-    use :: map_str_int
+    use :: map_char_int32
 end module maps

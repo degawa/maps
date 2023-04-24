@@ -8,10 +8,10 @@ module maps_common_proc_append
     public :: append
 
     interface append
-        procedure :: append_str_int32
+        procedure :: append_char_int32
     end interface
 contains
-    subroutine append_str_int32(map, key, value, status)
+    subroutine append_char_int32(map, key, value, status)
         use :: stdlib_hashmap_wrappers, only:set
         implicit none
         class(hashmap_type), intent(inout) :: map
@@ -31,5 +31,5 @@ contains
         if (conflict) then
             call store(status, 2)
         end if
-    end subroutine append_str_int32
+    end subroutine append_char_int32
 end module maps_common_proc_append
