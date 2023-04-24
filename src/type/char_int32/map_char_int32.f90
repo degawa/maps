@@ -132,7 +132,7 @@ contains
 
     subroutine initialize(this, hashmap, hasher, slots_bits, status)
         use :: stdlib_hashmaps, only:chaining_hashmap_type, open_hashmap_type
-        use :: maps_common_proc
+        use :: maps_common_initialize
         use :: stdlib_optval
         use :: stdlib_ascii
         implicit none
