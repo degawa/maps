@@ -1,4 +1,4 @@
-module maps_common_initialize
+module maps_common_proc_initialize
     use, intrinsic :: iso_fortran_env
     use :: stdlib_hashmap_wrappers, only:fnv_1_hasher, fnv_1a_hasher
     use :: stdlib_hashmaps, only:hashmap_type
@@ -29,4 +29,4 @@ contains
             call map%init(fnv_1_hasher, slots_bits, status)
         end select
     end subroutine initialize_map
-end module maps_common_initialize
+end module maps_common_proc_initialize
