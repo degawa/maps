@@ -9,13 +9,14 @@ module maps_common_proc_get
         procedure :: get_other_char
     end interface
 contains
-    !>gets data from the hashmap
-    subroutine get_other_char(map, key, other)
-        use :: stdlib_hashmap_wrappers, only:set, get
+    !>Gets data in `class(*)` from the map.
         implicit none
         class(hashmap_type), intent(inout) :: map
+            !!  a map
         character(*), intent(in) :: key
+            !! the key to map to the returned value
         class(*), allocatable, intent(out) :: other
+            !! the value in `class(*)` mapped to the specified key
 
         type(key_type) :: hash_key
         type(other_type) :: hash_other
