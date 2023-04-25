@@ -11,13 +11,17 @@ module maps_common_proc_append
         procedure :: append_char_int32
     end interface
 contains
+    !>Appends the key-value mapping to the specified map.
     subroutine append_char_int32(map, key, value, status)
-        use :: stdlib_hashmap_wrappers, only:set
         implicit none
         class(hashmap_type), intent(inout) :: map
+            !! a map to be appended the specified key-value mapping
         character(*), intent(in) :: key
+            !! the key to map to the specified value
         integer(int32), intent(in) :: value
+            !! the value to be mapped to the specified key
         integer(int32), intent(out), optional :: status
+            !! a status of operation
 
         type(key_type) :: hash_key
         type(other_type) :: hash_value
