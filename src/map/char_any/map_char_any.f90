@@ -524,7 +524,7 @@ contains
         real(real32) :: mapped_value
         mapped_value = this%get(key)
 
-        if (mapped_value == value) then
+        if (abs(mapped_value - value) <= epsilon(value)) then
             call this%remove_key(key, status)
         end if
     end subroutine remove_if_real32
@@ -546,7 +546,7 @@ contains
         real(real64) :: mapped_value
         mapped_value = this%get(key)
 
-        if (mapped_value == value) then
+        if (abs(mapped_value - value) <= epsilon(value)) then
             call this%remove_key(key, status)
         end if
     end subroutine remove_if_real64
@@ -568,7 +568,7 @@ contains
         real(real128) :: mapped_value
         mapped_value = this%get(key)
 
-        if (mapped_value == value) then
+        if (abs(mapped_value - value) <= epsilon(value)) then
             call this%remove_key(key, status)
         end if
     end subroutine remove_if_real128
@@ -590,7 +590,7 @@ contains
         complex(real32) :: mapped_value
         mapped_value = this%get(key)
 
-        if (mapped_value == value) then
+        if (abs(mapped_value - value) <= epsilon(real(0, kind=real32))) then
             call this%remove_key(key, status)
         end if
     end subroutine remove_if_cmplx32
@@ -612,7 +612,7 @@ contains
         complex(real64) :: mapped_value
         mapped_value = this%get(key)
 
-        if (mapped_value == value) then
+        if (abs(mapped_value - value) <= epsilon(real(0, kind=real64))) then
             call this%remove_key(key, status)
         end if
     end subroutine remove_if_cmplx64
@@ -634,7 +634,7 @@ contains
         complex(real128) :: mapped_value
         mapped_value = this%get(key)
 
-        if (mapped_value == value) then
+        if (abs(mapped_value - value) <= epsilon(real(0, kind=real128))) then
             call this%remove_key(key, status)
         end if
     end subroutine remove_if_cmplx128
