@@ -9,7 +9,7 @@ module maps_common_proc_get
         procedure :: get_other_char
     end interface
 contains
-    !>Gets data in `class(*)` from the map.
+    !>Gets data as `class(*)` from the map.
         implicit none
         class(hashmap_type), intent(inout) :: map
             !! a map in which the value is retrieved

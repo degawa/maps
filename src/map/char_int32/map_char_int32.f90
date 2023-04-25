@@ -8,7 +8,7 @@ module map_char_int32
     private
 
     !>User-defined type for mapping keys of `character(*)`
-    !>to `integer(int32)` values .
+    !>to `integer(int32)` values.
     !>
     !>Dupulicated keys are not allowed.
     type, public :: char_to_int32_map_type
@@ -46,7 +46,7 @@ module map_char_int32
     end type char_to_int32_map_type
 
 contains
-    !>Maps the specified value to the specified  key in the map.
+    !>Maps the specified value to the specified key in the map.
     subroutine put(this, key, value, status)
         use :: maps_common_proc_append
         implicit none
@@ -114,7 +114,8 @@ contains
 
         size = this%map%entries()
 
-        ! if the number is negative, it is assumed that an overflow occurred.
+        ! if the number is negative,
+        ! it is assumed that an overflow occurred.
         if (size < 0) then
             size = huge(size)
         end if
