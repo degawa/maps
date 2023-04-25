@@ -1,6 +1,7 @@
 module maps
     use :: map_char_int32
     use :: map_char_any
+    use :: map_any_int32
     use :: map_type_mappable, only: &
         as_int8, &
         as_int16, &
