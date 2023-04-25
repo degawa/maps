@@ -6,10 +6,11 @@ module maps_common_proc_get
     public :: get_other
 
     interface get_other
-        procedure :: get_other_char
+        procedure :: get_other_char_key
     end interface
 contains
     !>Gets data as `class(*)` from the map.
+    subroutine get_other_char_key(map, key, other)
         implicit none
         class(hashmap_type), intent(inout) :: map
             !! a map in which the value is retrieved
@@ -25,5 +26,5 @@ contains
         call set(hash_key, trim(key))
         call map%get_other_data(hash_key, hash_other)
         call get(hash_other, other)
-    end subroutine get_other_char
+    end subroutine get_other_char_key
 end module maps_common_proc_get
