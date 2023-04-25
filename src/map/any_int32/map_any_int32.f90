@@ -12,6 +12,9 @@ module map_any_int32
     !>to `integer(int32)` values.
     !>
     !>Dupulicated keys are not allowed.
+    !>
+    !>This type only demonstrates feasibility
+    !>and may not be suitable for practical use.
     type, public :: any_to_int32_map_type
         class(hashmap_type), allocatable, private :: map
             !! hashmap
