@@ -7,6 +7,7 @@ module maps_common_proc_get
 
     interface get_other
         procedure :: get_other_char_key
+        procedure :: get_other_int8_key
     end interface
 contains
     !>Gets data as `class(*)` from the map.
@@ -27,4 +28,24 @@ contains
         call map%get_other_data(hash_key, hash_other)
         call get(hash_other, other)
     end subroutine get_other_char_key
+
+    !>Gets data as `class(*)` from the map.
+    subroutine get_other_int8_key(map, key, other)
+        use, intrinsic :: iso_fortran_env
+        implicit none
+        class(hashmap_type), intent(inout) :: map
+            !! a map in which the value is retrieved
+        integer(int8), intent(in) :: key(:)
+            !! the key to mapping to the specified value
+        class(*), allocatable, intent(out) :: other
+            !! the value in any intrinsic type,
+            !! mapped to the specified key, represented as `class(*)`
+
+        type(key_type) :: hash_key
+        type(other_type) :: hash_other
+
+        call set(hash_key, key)
+        call map%get_other_data(hash_key, hash_other)
+        call get(hash_other, other)
+    end subroutine get_other_int8_key
 end module maps_common_proc_get
