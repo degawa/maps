@@ -14,6 +14,6 @@ program char_any
     call map%put("real32.max", huge(0._real32))
     call map%put("real64.max", huge(0._real64))
 
-    print *, as_int32(map%get("int32.max"))
-    print *, as_real64(map%get("real64.max"))
+    print *, as_int32(map%get("int32.max")) ! 2147483647
+    print *, as_real64(map%get("real64.max")) ! 1.7976931348623157E+308
 end program char_any
