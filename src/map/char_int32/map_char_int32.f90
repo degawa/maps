@@ -8,7 +8,7 @@ module map_char_int32
     private
 
     !>User-defined type for mapping keys of `character(*)`
-    !>to values of `integer(int32)`.
+    !>to `integer(int32)` values .
     !>
     !>Dupulicated keys are not allowed.
     type, public :: char_to_int32_map_type
@@ -21,12 +21,13 @@ module map_char_int32
         procedure, public, pass :: get_value
         !* returns the value mapped to a key.
         procedure, public, pass :: get_or_default
-        !* returns the value mapped to a key, or
-        !  returns default value if the key is not contained.
+        !* returns the value mapped to a key or
+        !  returns the specified value as a default
+        !  if the key is not contained.
         generic :: get => get_value, get_or_default
 
         procedure, public, pass :: size
-        !* returns the number of key-value mapping.
+        !* returns the number of key-value mappings.
         procedure, public, pass :: is_empty
         !* returns true if the map is empty.
 
@@ -41,22 +42,22 @@ module map_char_int32
         !  only if the key is mapped to the specific value.
 
         procedure, public, pass :: initialize
-        !* initialize the map.
+        !* initialize the instance of `char_to_int32_map_type`.
     end type char_to_int32_map_type
 
 contains
-    !>Maps the specified value to the specifiled key in the map.
+    !>Maps the specified value to the specified  key in the map.
     subroutine put(this, key, value, status)
         use :: maps_common_proc_append
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         character(*), intent(in) :: key
-            !! the key to map to the specified value
+            !! the key to mapping to the specified value
         integer(int32), intent(in) :: value
             !! the value to be mapped to the specified key
         integer(int32), intent(out), optional :: status
-            !! the status of operation
+            !! the status of the operation
 
         call append(this%map, key, value, status)
     end subroutine put
@@ -68,9 +69,9 @@ contains
         use :: maps_common_proc_get
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         character(*), intent(in) :: key
-            !! the key to map to the returned value
+            !! the key to mapping to the returned value
         integer(int32) :: val
             !! the value to be mapped to the specified key
 
@@ -82,17 +83,17 @@ contains
         end select
     end function get_value
 
-    !>Returns the value to which the specified key is mapped, or
-    !>returns default value if the key is not contained in the map.
+    !>Returns the value to which the specified key is mapped or
+    !>returns the specified value as a default
+    !>if the key is not contained in the map.
     function get_or_default(this, key, default) result(val)
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         character(*), intent(in) :: key
-            !! the key to map to the returned value
+            !! the key to mapping to the returned value
         integer(int32), intent(in) :: default
-            !! the default value of the value
-            !! mapped to the specified key
+            !! the default value mapped to the specified key
         integer(int32) :: val
             !! the value to be mapped to the specified key
 
@@ -101,47 +102,47 @@ contains
             val = default
     end function get_or_default
 
-    !>Returns the number of key-value mappings that the map contains.
-    !>Returns the maximum value of the 32-bit integer
-    !>if the number is negative, being assumed an overflow.
+    !>Returns the number of key-value mappings the map contains
+    !>and returns the maximum value of the 32-bit integer
+    !>if the number is negative, assuming an overflow occurred.
     function size(this)
         implicit none
         class(char_to_int32_map_type), intent(in) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         integer(int32) :: size
-            !! the number of key-value mappings in the map.
+            !! the number of key-value mappings in the map
 
         size = this%map%entries()
 
-        ! if the number is negative, it is assumed an overflow.
+        ! if the number is negative, it is assumed that an overflow occurred.
         if (size < 0) then
             size = huge(size)
         end if
     end function size
 
     !>Returns `.true.` if no key-value mappings are contained
-    !>in the map, and returns `.false.` elsewhere.
+    !>in the map and returns `.false.` elsewhere.
     function is_empty(this)
         implicit none
         class(char_to_int32_map_type), intent(in) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         logical :: is_empty
-            !! a status flag that the map is empty
+            !! the status flag that the map is empty
 
         is_empty = (this%size() == 0)
     end function is_empty
 
-    !>Returns `.true.` if the map contains the key,
-    !>and retruns `.false.` elsewhere.
+    !>Returns `.true.` if the map contains the key
+    !>and returns  `.false.` elsewhere.
     function contains_key(this, key)
         use :: stdlib_hashmap_wrappers, only:set
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         character(*), intent(in) :: key
-            !! the key to be tested the its existence in the map
+            !! the key to test the its existence in the map
         logical :: contains_key
-            !! a status flag that the map contains the key
+            !! the status flag that the map contains the key
 
         call this%map%key_test(to_hash_key(key), contains_key)
     end function contains_key
@@ -152,11 +153,11 @@ contains
         use :: store_proc
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         character(*), intent(in) :: key
             !! the key to be deleted from the map.
         integer(int32), intent(out), optional :: status
-            !! a status of operation
+            !! the status of the operation
 
         logical :: existed
 
@@ -174,13 +175,13 @@ contains
         use :: stdlib_hashmap_wrappers, only:set
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         character(*), intent(in) :: key
             !! the key to be deleted from the map
         integer(int32), intent(in) :: value
             !! the value to be mapped to the specified key
         integer(int32), intent(out), optional :: status
-            !! a status of operation
+            !! the status of the operation
 
         integer(int32) :: mapped_value
         mapped_value = this%get(key)
@@ -190,21 +191,21 @@ contains
         end if
     end subroutine remove_if
 
-    !>Initialize the instance of the hashmap.
+    !>Initialize the instance of `char_to_int32_map_type`.
     subroutine initialize(this, hashmap, hasher, slots_bits, status)
         use :: maps_common_proc_initialize
         use :: maps_common_proc_factory
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
-            !! an instance of the hashmap
+            !! passed-object dummy argument
         character(*), intent(in), optional :: hashmap
-            !! the name of hashmap type
+            !! the name of the hashmap type
         character(*), intent(in), optional :: hasher
-            !! the name of hash function
+            !! the name of the hash function
         integer(int32), intent(in), optional :: slots_bits
             !! the number of bits initially used to map to the slots
         integer(int32), intent(out), optional :: status
-            !! a status of operation
+            !! the status of the operation
 
         allocate (this%map, source=hashmap_factory(hashmap))
         call initialize_map(this%map, hasher, slots_bits, status)

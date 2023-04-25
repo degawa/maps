@@ -15,13 +15,13 @@ contains
     subroutine append_char_int32(map, key, value, status)
         implicit none
         class(hashmap_type), intent(inout) :: map
-            !! a map to be appended the specified key-value mapping
+            !! a map to which the specified key-value mapping is appended
         character(*), intent(in) :: key
-            !! the key to map to the specified value
+            !! the key to mapping to the specified value
         integer(int32), intent(in) :: value
             !! the value to be mapped to the specified key
         integer(int32), intent(out), optional :: status
-            !! a status of operation
+            !! the status of the operation
 
         type(key_type) :: hash_key
         type(other_type) :: hash_value

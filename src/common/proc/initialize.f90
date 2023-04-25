@@ -13,13 +13,13 @@ contains
     subroutine initialize_map(map, hasher, slots_bits, status)
         implicit none
         class(hashmap_type), intent(inout) :: map
-            !! an instance of map
+            !! an instance of a map
         character(*), intent(in), optional :: hasher
-            !! the name of hash function
+            !! the name of the hash function
         integer(int32), intent(in), optional :: slots_bits
             !! the number of bits initially used to map to the slots
         integer(int32), intent(out), optional :: status
-            !! a status of operation
+            !! the status of the operation
 
         character(:), allocatable :: hasher_str
         hasher_str = to_upper(optval(hasher, ""))

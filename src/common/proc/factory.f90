@@ -11,9 +11,9 @@ contains
         use :: stdlib_ascii
         implicit none
         character(*), intent(in), optional :: hashmap
-            !! the name of hashmap type
+            !! the name of the hashmap type
         class(hashmap_type), allocatable :: map
-            !! an instance of hashmap type
+            !! an instance of the hashmap type
 
         character(:), allocatable :: hashmap_str
         hashmap_str = to_lower(optval(hashmap, "chaining"))

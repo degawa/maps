@@ -10,24 +10,24 @@ module maps_common_proc_toHashKey
         procedure :: to_hash_key_int8
     end interface
 contains
-    !>Returns the key set to `key_type`.
+    !>Returns an instance of `key_type` constructed from the `key`.
     function to_hash_key_char(key) result(hash_key)
         implicit none
         character(*), intent(in) :: key
-            !! a key in the character
+            !! a key in `character(*)`
         type(key_type) :: hash_key
-            !! the key set to `key_type`
+            !! an instance of `key_type` constructed from the `value`
 
         call set(hash_key, key)
     end function to_hash_key_char
 
-    !>Returns the key set to `key_type`.
+    !>Returns an instance of `key_type` constructed from the `key`.
     function to_hash_key_int8(key) result(hash_key)
         implicit none
         integer(int8), intent(in) :: key(:)
-            !! a key in the 1-byte integer array
+            !! a key in an array of 1-byte integers
         type(key_type) :: hash_key
-            !! the key set to `key_type`
+            !! an instance of `key_type` constructed from the `value`
 
         call set(hash_key, key)
     end function to_hash_key_int8
