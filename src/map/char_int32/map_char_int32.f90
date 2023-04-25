@@ -4,8 +4,6 @@ module map_char_int32
     use :: stdlib_hashmap_wrappers, only:key_type, other_type
     use :: maps_common_proc_toHashKey
     use :: maps_common_proc_toHashValue
-    use :: maps_common_proc_get
-    use :: maps_common_proc_append
     implicit none
     private
 
@@ -14,7 +12,7 @@ module map_char_int32
     !>
     !>Dupulicated keys are not allowed.
     type, public :: char_to_int32_map_type
-        class(hashmap_type), allocatable :: map
+        class(hashmap_type), allocatable, private :: map
             !! hashmap
     contains
         procedure, public, pass :: put
@@ -194,10 +192,8 @@ contains
 
     !>Initialize the instance of the hashmap.
     subroutine initialize(this, hashmap, hasher, slots_bits, status)
-        use :: stdlib_hashmaps, only:chaining_hashmap_type, open_hashmap_type
         use :: maps_common_proc_initialize
-        use :: stdlib_optval
-        use :: stdlib_ascii
+        use :: maps_common_proc_factory
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
             !! an instance of the hashmap
@@ -210,19 +206,7 @@ contains
         integer(int32), intent(out), optional :: status
             !! a status of operation
 
-        character(:), allocatable :: hashmap_str
-
-        hashmap_str = to_lower(optval(hashmap, "chaining"))
-
-        select case (hashmap_str)
-        case ("chaining")
-            allocate (chaining_hashmap_type :: this%map)
-        case ("open")
-            allocate (open_hashmap_type :: this%map)
-        case default
-            allocate (chaining_hashmap_type :: this%map)
-        end select
-
+        allocate (this%map, source=hashmap_factory(hashmap))
         call initialize_map(this%map, hasher, slots_bits, status)
     end subroutine initialize
 end module map_char_int32
