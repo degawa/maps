@@ -92,7 +92,7 @@ The names of the hashmap types defined in maps follow the convention: `<type of 
 
 `any` means scalar values of the intrinsic types, including `integer(int8)`, `integer(int16)`, `integer(int32)`, `integer(int64)`, `real(real32)`, `real(real64)`, `real(real128)`, `complex(real32)`, `complex(real64)`, `complex(real128)`, `logical`, and `character(*)`. User-defined types are currently not supported.
 
-`char_to_any_map_type` can contain values of the intrinsic types. The value mapped to a key can be retrieved with the type-bound procedure `get`, regardless of its type. But conversion to the obtained type is required when putting it directly to a print or write statement:
+`char_to_any_map_type` can contain values of the intrinsic types. The value mapped to a key can be retrieved with the type-bound procedure `get`, regardless of its type. But conversion to the obtained type is required when putting it directly to a print or write statement, or passing it to a procedure:
 
 ```Fortran
 type(char_to_any_map_type) :: map
