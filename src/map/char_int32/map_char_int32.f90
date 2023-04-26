@@ -195,22 +195,24 @@ contains
     end subroutine remove_if
 
     !>Initialize the instance of `char_to_int32_map_type`.
-    subroutine initialize(this, hashmap, hasher, slots_bits, status)
+    subroutine initialize(this, collision_resolver, hasher, slots_bits, status)
         use :: maps_common_proc_initialize
         use :: maps_common_proc_factory
+        use :: maps_common_type_collisionResolver
+        use :: maps_common_type_hashFunction
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
             !! passed-object dummy argument
-        character(*), intent(in), optional :: hashmap
-            !! the name of the hashmap type
-        character(*), intent(in), optional :: hasher
-            !! the name of the hash function
+        type(collision_resolver_type), intent(in), optional :: collision_resolver
+            !! the collision resolution algorithm enumerator of the hashmap
+        type(hash_function_type), intent(in), optional :: hasher
+            !! the hash function enumerator
         integer(int32), intent(in), optional :: slots_bits
             !! the number of bits initially used to map to the slots
         integer(int32), intent(out), optional :: status
             !! the status of the operation
 
-        allocate (this%map, source=hashmap_factory(hashmap))
+        allocate (this%map, source=hashmap_factory(collision_resolver))
         call initialize_map(this%map, hasher, slots_bits, status)
     end subroutine initialize
 

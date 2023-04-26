@@ -15,4 +15,6 @@ module maps
         as_complex128, &
         as_logical, &
         as_char
+    use :: maps_common_type_hashFunction, only:hash_functions
+    use :: maps_common_type_collisionResolver, only:collision_resolvers
 end module maps
