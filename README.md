@@ -27,6 +27,7 @@ block
     select type (data); type is (integer(int32))
         print *, data, "is mapped to apple"
     end select
+end block
 ```
 
 The wrapper provides a similar feel for operations to the hashmaps in other languages, hiding the abovementioned steps.
@@ -194,3 +195,6 @@ print *, map%get(100) ! 200
 ## Todo
 - [ ] To add unit tests.
 - [ ] To support user-defined types
+- [ ] To add finializer
+- [ ] To add some procedures
+- [ ] To add some hashmaps
