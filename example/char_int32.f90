@@ -18,4 +18,6 @@ program char_int32
     print *, map%contains("orange") ! T
     call map%remove_if("orange", 150)
     print *, map%contains("orange") ! F
+
+    call map%finalize()
 end program char_int32

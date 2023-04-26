@@ -4,7 +4,6 @@ program char_any
     implicit none
 
     type(char_to_any_map_type) :: map
-
     call map%initialize()
 
     call map%put("int8.max", huge(0_int8))
@@ -28,4 +27,6 @@ program char_any
 
     call map%remove_if("real64.max", -huge(0._real64))
     print *, map%contains("real64.max") ! T
+
+    call map%finalize()
 end program char_any
