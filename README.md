@@ -194,7 +194,8 @@ print *, map%get(100) ! 200
 
 ## Todo
 - [ ] To add unit tests.
-- [ ] To support user-defined types
-- [ ] To add finializer
-- [ ] To add some procedures
-- [ ] To add some hashmaps
+- [ ] To support user-defined types.
+- [ ] To add finializer.
+- [ ] To add some procedures.
+- [ ] To add some hashmaps.
+- [ ] To define status code.
