@@ -86,7 +86,7 @@ maps = {git = "https://github.com/degawa/maps.git"}
 ```
 
 ## usage
-To use a hashmap defined in maps, declare a hashmap instance and initialize it with the `initialize` procedure. <!--When it is no longer needed, the `finalize` procedure destorys the instance.-->
+To use a hashmap defined in maps, declare a hashmap instance and initialize it with the `initialize` procedure. When it is no longer needed, the `finalize` procedure destorys the instance.
 
 The names of the hashmap types defined in maps follow the convention: `<type of key>_to_<type of value>_map_type`. For instance, the hashmap named `char_to_int32_map_type` maps keys of the `character(*)` type to `integer(int32)` type values.
 
@@ -101,7 +101,6 @@ call map%initialize()
 call map%put("int32.max", huge(0_int32))
 block
     integer(int32) :: i32
-    real(real32) :: r32
     i32 = map%get("int32.max")
     print *, i32, as_int32(map%get("int32.max")) ! 2147483647  2147483647
 end block
@@ -179,7 +178,7 @@ print *, map%contains("real64.max") ! T
 ```
 
 #### any_to_int32_map
-The `any_to_int32_map_type` maps keys of  the intrinsic types type to `integer(int32)` type values. This type is provided only for demonstrating the feasibility of the hashmaps in stdlib and may not be suitable for practical use.
+The `any_to_int32_map_type` maps keys of the intrinsic types to `integer(int32)` type values. This type is provided only for demonstrating the feasibility of the hashmaps in stdlib and may not be suitable for practical use.
 
 ```Fortran
 use :: maps
@@ -195,7 +194,7 @@ print *, map%get(100) ! 200
 ## Todo
 - [ ] To add unit tests.
 - [ ] To support user-defined types.
-- [ ] To add finializer.
+- [x] To add finializer.
 - [ ] To add some procedures.
 - [ ] To add some hashmaps.
 - [ ] To define status code.
