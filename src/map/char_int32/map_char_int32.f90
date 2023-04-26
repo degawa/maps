@@ -43,6 +43,8 @@ module map_char_int32
 
         procedure, public, pass :: initialize
         !* initialize the instance of `char_to_int32_map_type`.
+        procedure, public, pass :: finalize
+        !* finalize the instance of `char_to_int32_map_type`.
     end type char_to_int32_map_type
 
 contains
@@ -211,4 +213,13 @@ contains
         allocate (this%map, source=hashmap_factory(hashmap))
         call initialize_map(this%map, hasher, slots_bits, status)
     end subroutine initialize
+
+    !>Finalizes the instance of `char_to_int32_map_type`.
+    subroutine finalize(this)
+        implicit none
+        class(char_to_int32_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+
+        deallocate (this%map)
+    end subroutine finalize
 end module map_char_int32

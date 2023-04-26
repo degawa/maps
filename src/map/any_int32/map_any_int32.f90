@@ -1,6 +1,6 @@
 module map_any_int32
     use, intrinsic :: iso_fortran_env
-    use :: stdlib_hashmaps, only:hashmap_type, chaining_hashmap_type
+    use :: stdlib_hashmaps, only:hashmap_type
     use :: stdlib_hashmap_wrappers, only:key_type, other_type
     use :: maps_common_proc_toHashKey
     use :: maps_common_proc_toHashValue
@@ -47,6 +47,8 @@ module map_any_int32
 
         procedure, public, pass :: initialize
         !* initialize the instance of `any_to_int32_map_type`.
+        procedure, public, pass :: finalize
+        !* finalize the instance of `any_to_int32_map_type`.
     end type any_to_int32_map_type
 
 contains
@@ -215,4 +217,13 @@ contains
         allocate (this%map, source=hashmap_factory(hashmap))
         call initialize_map(this%map, hasher, slots_bits, status)
     end subroutine initialize
+
+    !>Finalizes the instance of `any_to_int32_map_type`.
+    subroutine finalize(this)
+        implicit none
+        class(any_to_int32_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+
+        deallocate (this%map)
+    end subroutine finalize
 end module map_any_int32
