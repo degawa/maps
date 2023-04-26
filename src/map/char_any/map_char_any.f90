@@ -313,7 +313,7 @@ contains
     !>The value is undefined if the type of `value` in the map
     !>is not the intrinsic types.
     function get_value(this, key) result(val)
-        use :: map_type_mappable
+        use :: maps_common_type_mappable
         implicit none
         class(char_to_any_map_type), intent(inout) :: this
             !! passed-object dummy argument

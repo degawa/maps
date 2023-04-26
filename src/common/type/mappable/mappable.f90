@@ -1,4 +1,4 @@
-module map_type_mappable
+module maps_common_type_mappable
     use, intrinsic :: iso_fortran_env
     implicit none
     private
@@ -542,4 +542,4 @@ contains
 
         char = this%char
     end function as_char
-end module map_type_mappable
+end module maps_common_type_mappable
