@@ -14,3 +14,4 @@ library = false
 [dependencies]
 stdlib = { git="https://github.com/fortran-lang/stdlib", branch="stdlib-fpm" }
 store =  { git="https://github.com/degawa/store"}
+enumul =  { git="https://github.com/degawa/enumul"}
