@@ -196,5 +196,5 @@ print *, map%get(100) ! 200
 - [ ] To support user-defined types.
 - [x] To add finializer.
 - [ ] To add some procedures.
-- [ ] To add some hashmaps.
-- [ ] To define status code.
+- [x] To add some hashmaps.
+- [x] To define status code.
