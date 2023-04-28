@@ -28,5 +28,9 @@ program char_any
     call map%remove_if("real64.max", huge(0._real64))
     print *, map%contains("real64.max") ! F
 
+    call map%replace("int16.max", -huge(0_int16))
+    call map%replace_if("int64.max", huge(0_int64), -huge(0_int64))
+    print *, as_int16(map%get("int16.max")), as_int64(map%get("int64.max")) ! -32767 -9223372036854775807
+
     call map%finalize()
 end program char_any
