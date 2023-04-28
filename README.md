@@ -173,8 +173,8 @@ block
     print *, i8, r32 ! 127   3.40282347E+38
 end block
 
-call map%remove_if("real64.max", -huge(0._real64))
-print *, map%contains("real64.max") ! T
+call map%remove_if("real64.max", huge(0._real64))
+print *, map%contains("real64.max") ! F
 ```
 
 #### any_to_int32_map
