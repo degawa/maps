@@ -19,5 +19,14 @@ program char_int32
     call map%remove_if("orange", 150)
     print *, map%contains("orange") ! F
 
+    call map%replace("apple", 300)
+    print *, map%get("apple") ! 300
+
+    call map%replace_if("banana", 300, map%get("apple")/2)
+    print *, map%get("banana") ! 200
+
+    call map%replace_if("banana", 200, map%get("apple")/2)
+    print *, map%get("banana") ! 150
+
     call map%finalize()
 end program char_int32
