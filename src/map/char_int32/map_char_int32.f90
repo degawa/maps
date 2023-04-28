@@ -258,8 +258,8 @@ contains
         msg = success_status_msg
 
         if (this%contains(key)) then
-            call remove_and_append(this%map, key, value, status)
-            if (error_occurred(status)) return
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
         else
             msg = err%get(err%warn_not_exist)
         end if
@@ -285,11 +285,11 @@ contains
             !! the status of the operation
 
         character(:), allocatable :: msg
-
         msg = success_status_msg
+
         if (this%contains(key)) then
             if (this%get(key) == old_value) then
-                call remove_and_append(this%map, key, new_value, status)
+                call this%replace(key, new_value, status)
                 if (error_occurred(status)) return
             else
                 msg = err%get(err%warn_value_not_equal)
