@@ -191,6 +191,15 @@ call map%put(100, 200)
 print *, map%get(100) ! 200
 ```
 
+#### note
+If the error `build\dependencies\stdlib\src\stdlib_hashmap_wrappers.f90, line 290: allocatable KEY%VALUE is not allocated` occurs when using NAG Fortran compiler, modify line 290-291 on `stdlib_hashmap_wrappers.f90` as follows:
+```diff
+-        key % value = transfer( value, key % value, &
+-                                bytes_char * len( value ) )
++        key % value = transfer( value, int(0, kind=kind(key%value)), &
++                                bytes_char * len( value ) )
+```
+
 ## Todo
 - [ ] To add unit tests.
 - [ ] To support user-defined types.
