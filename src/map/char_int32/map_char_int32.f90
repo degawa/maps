@@ -243,6 +243,7 @@ contains
     !>if the specified key is contained in the map.
     subroutine replace(this, key, value, status)
         use :: stdlib_hashmap_wrappers, only:set
+        use :: maps_common_proc_replace
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
             !! passed-object dummy argument
@@ -253,21 +254,24 @@ contains
         type(error_stat_type), intent(out), optional :: status
             !! the status of the operation
 
-        if (this%contains(key)) then
-            call this%remove_key(key, status)
-            if (error_occurred(status)) return
+        character(:), allocatable :: msg
+        msg = success_status_msg
 
-            call this%put(key, value, status)
+        if (this%contains(key)) then
+            call remove_and_append(this%map, key, value, status)
             if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
         end if
 
-        call set_success(status)
+        call set_success(status, msg)
     end subroutine replace
 
     !>Replaces the key-value mapping
     !>only if the key is mapped to the specific value.
     subroutine replace_if(this, key, old_value, new_value, status)
         use :: stdlib_hashmap_wrappers, only:set
+        use :: maps_common_proc_replace
         implicit none
         class(char_to_int32_map_type), intent(inout) :: this
             !! passed-object dummy argument
@@ -280,14 +284,21 @@ contains
         type(error_stat_type), intent(out), optional :: status
             !! the status of the operation
 
+        character(:), allocatable :: msg
+
+        msg = success_status_msg
         if (this%contains(key)) then
             if (this%get(key) == old_value) then
-                call this%replace(key, new_value, status)
+                call remove_and_append(this%map, key, new_value, status)
                 if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
             end if
+        else
+            msg = err%get(err%warn_not_exist)
         end if
 
-        call set_success(status)
+        call set_success(status, msg)
     end subroutine replace_if
 
     !>Initialize the instance of `char_to_int32_map_type`.
