@@ -142,13 +142,14 @@ contains
         integer(int32) :: size
             !! the number of key-value mappings in the map
 
-        size = this%map%entries()
+        character(:), allocatable :: warn_msg
+
 
         ! if the number is negative,
         ! it is assumed that an overflow occurred.
-        if (size < 0) then
-            size = huge(size)
-            call catch_error(success_status_code, err%get(err%warn_overflow_occured), status)
+            warn_msg = err%get(err%warn_overflow_occured)
+            ! passing err%get causes error of ambiguous generic interface
+            call catch_error(success_status_code, warn_msg, status)
             return
         end if
         call set_success(status)
