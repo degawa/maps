@@ -32,7 +32,7 @@ module map_any_int32
         !  if the key is not contained.
         generic :: get => get_value, get_or_default
 
-        procedure, public, pass :: size
+        procedure, public, pass :: entries
         !* returns the number of key-value mappings.
         procedure, public, pass :: is_empty
         !* returns true if the map is empty.
@@ -131,27 +131,30 @@ contains
     !>Returns the number of key-value mappings the map contains
     !>and returns the maximum value of the 32-bit integer
     !>if the number is negative, assuming an overflow occurred.
-    function size(this, status)
+    function entries(this, status)
         implicit none
         class(any_to_int32_map_type), intent(in) :: this
             !! passed-object dummy argument
         type(error_stat_type), intent(out), optional :: status
             !! the status of the operation
-        integer(int32) :: size
+        integer(int32) :: entries
             !! the number of key-value mappings in the map
 
         character(:), allocatable :: warn_msg
 
+        entries = this%map%entries()
 
         ! if the number is negative,
         ! it is assumed that an overflow occurred.
+        if (entries < 0) then
+            entries = huge(entries)
             warn_msg = err%get(err%warn_overflow_occured)
             ! passing err%get causes error of ambiguous generic interface
             call catch_error(success_status_code, warn_msg, status)
             return
         end if
         call set_success(status)
-    end function size
+    end function entries
 
     !>Returns `.true.` if no key-value mappings are contained
     !>in the map and returns `.false.` elsewhere.
@@ -164,7 +167,7 @@ contains
         logical :: is_empty
             !! the status flag that the map is empty
 
-        is_empty = (this%size() == 0)
+        is_empty = (this%entries() == 0)
         call set_success(status)
     end function is_empty
 
