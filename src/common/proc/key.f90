@@ -17,6 +17,6 @@ contains
         integer(int32) :: num_int8_elem
         num_int8_elem = storage_size(key)/storage_size(0_int8)
 
-        key_int8 = transfer(key, mold=key_int8, size=num_int8_elem)
+        key_int8 = transfer(key, mold=0_int8, size=num_int8_elem)
     end function to_settable
 end module maps_common_proc_key
