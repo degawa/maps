@@ -23,7 +23,7 @@ contains
             !! passed-object dummy argument
         type(error_stat_type), intent(inout), optional :: err
             !! the error status
-        integer(int32), intent(in), optional :: stat
+        integer(int32), intent(inout), optional :: stat
             !! the error code
         character(*), intent(inout), optional :: msg
             !! the error message
