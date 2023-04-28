@@ -121,11 +121,12 @@ contains
         integer(int32) :: val
             !! the value to be mapped to the specified key
 
-        val = this%get_value(key, status)
-        if (error_occurred(status)) return
-
-        if (val /= default) &
+        if (this%contains(key)) then
+            val = this%get_value(key, status)
+            if (error_occurred(status)) return
+        else
             val = default
+        end if
 
         call set_success(status)
     end function get_or_default
