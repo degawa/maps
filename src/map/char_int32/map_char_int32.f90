@@ -142,7 +142,7 @@ contains
         ! it is assumed that an overflow occurred.
         if (size < 0) then
             size = huge(size)
-            call catch_error(err%warn_overflow_occured, err, status)
+            call catch_error(success_status_code, err%get(err%warn_overflow_occured), status)
             return
         end if
         call set_success(status)
