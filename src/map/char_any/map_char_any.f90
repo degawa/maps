@@ -843,7 +843,7 @@ contains
         deallocate (this%map, stat=alloc_stat, errmsg=msg)
         if (alloc_stat /= 0) then
             call catch_error(err%deallocation_failed, err, status, &
-                             append_message_task(msg))
+                             append_message_task(trim(msg)))
             return
         end if
     end subroutine finalize
