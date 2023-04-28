@@ -13,6 +13,8 @@ program char_int32
 
     print *, map%get("banana") ! 200
 
+    print *, map%get_or_default("orange", 0), map%get_or_default("berry", 500)
+
     print *, map%contains("orange") ! T
     call map%remove_if("orange", 100)
     print *, map%contains("orange") ! T
