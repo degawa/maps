@@ -411,7 +411,8 @@ contains
         integer(int32) :: entries
             !! the number of key-value mappings in the map
 
-        character(:), allocatable :: warn_msg
+        character(:), allocatable :: msg
+        msg = success_status_msg
 
         entries = this%map%entries()
 
@@ -419,12 +420,10 @@ contains
         ! it is assumed that an overflow occurred.
         if (entries < 0) then
             entries = huge(entries)
-            warn_msg = err%get(err%warn_overflow_occured)
-            ! passing err%get causes error of ambiguous generic interface
-            call catch_error(success_status_code, warn_msg, status)
-            return
+            msg = err%get(err%warn_overflow_occured)
         end if
-        call set_success(status)
+
+        call set_success(status, msg)
     end function entries
 
     !>Returns `.true.` if no key-value mappings are contained
