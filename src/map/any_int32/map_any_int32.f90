@@ -47,6 +47,12 @@ module map_any_int32
         !* removes the key-value mapping
         !  only if the key is mapped to the specific value.
 
+        procedure, public, pass :: replace
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if
+        !* replaces the key-value mapping
+        !* only if the key is mapped to the specified value.
+
         procedure, public, pass :: initialize
         !* initialize the instance of `any_to_int32_map_type`.
         procedure, public, pass :: finalize
@@ -236,6 +242,68 @@ contains
 
         call set_success(status)
     end subroutine remove_if
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace(this, key, value, status)
+        use :: stdlib_hashmap_wrappers, only:set
+        use :: maps_common_proc_replace
+        implicit none
+        class(any_to_int32_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        class(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int32), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if(this, key, old_value, new_value, status)
+        use :: stdlib_hashmap_wrappers, only:set
+        use :: maps_common_proc_replace
+        implicit none
+        class(any_to_int32_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        class(*), intent(in) :: key
+            !! the key to be replaced
+        integer(int32), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        integer(int32), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            if (this%get(key) == old_value) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if
 
     !>Initialize the instance of `char_to_int32_map_type`.
     subroutine initialize(this, collision_resolver, hasher, slots_bits, status)

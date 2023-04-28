@@ -124,6 +124,96 @@ module map_char_any
             remove_if_logical, &
             remove_if_char
 
+        procedure, public, pass :: replace_int8
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_int16
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_int32
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_int64
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_real32
+        !* replaces the key-value mappin.
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_real64
+        !* replaces the key-value mappin.
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_real128
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_cmplx32
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_cmplx64
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_cmplx128
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_logical
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        procedure, public, pass :: replace_char
+        !* replaces the key-value mapping
+        !  only if the key is mapped to the specific value.
+        generic :: &
+            replace => &
+            replace_int8, &
+            replace_int16, &
+            replace_int32, &
+            replace_int64, &
+            replace_real32, &
+            replace_real64, &
+            replace_real128, &
+            replace_cmplx32, &
+            replace_cmplx64, &
+            replace_cmplx128, &
+            replace_logical, &
+            replace_char
+
+        procedure, public, pass :: replace_if_int8
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_int16
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_int32
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_int64
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_real32
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_real64
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_real128
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_cmplx32
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_cmplx64
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_cmplx128
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_logical
+        !* replaces the key-value mapping.
+        procedure, public, pass :: replace_if_char
+        !* replaces the key-value mapping.
+        generic :: &
+            replace_if => &
+            replace_if_int8, &
+            replace_if_int16, &
+            replace_if_int32, &
+            replace_if_int64, &
+            replace_if_real32, &
+            replace_if_real64, &
+            replace_if_real128, &
+            replace_if_cmplx32, &
+            replace_if_cmplx64, &
+            replace_if_cmplx128, &
+            replace_if_logical, &
+            replace_if_char
+
         procedure, public, pass :: initialize
         !* initialize the instance of `char_to_any_map_type`.
         procedure, public, pass :: finalize
@@ -793,6 +883,727 @@ contains
 
         call set_success(status)
     end subroutine remove_if_char
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_int8(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int8), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_int8
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_int16(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int16), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_int16
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_int32(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int32), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_int32
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_int64(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int64), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_int64
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_real32(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        real(real32), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_real32
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_real64(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        real(real64), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_real64
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_real128(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        real(real128), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_real128
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_cmplx32(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        complex(real32), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_cmplx32
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_cmplx64(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        complex(real64), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_cmplx64
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_cmplx128(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        complex(real128), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_cmplx128
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_logical(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        logical, intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_logical
+
+    !>Replaces the key-value mapping
+    !>if the specified key is contained in the map.
+    subroutine replace_char(this, key, value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        character(*), intent(in) :: value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            call this%remove_key(key, status); if (error_occurred(status)) return
+            call this%put(key, value, status); if (error_occurred(status)) return
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_char
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_int8(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int8), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        integer(int8), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        integer(int8) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (mapped_value == old_value) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_int8
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_int16(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int16), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        integer(int16), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        integer(int16) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (mapped_value == old_value) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_int16
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_int32(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int32), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        integer(int32), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        integer(int32) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (mapped_value == old_value) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_int32
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_int64(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        integer(int64), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        integer(int64), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        integer(int64) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (mapped_value == old_value) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_int64
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_real32(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        real(real32), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        real(real32), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        real(real32) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (abs(mapped_value - old_value) <= epsilon(old_value)) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_real32
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_real64(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        real(real64), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        real(real64), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        real(real64) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (abs(mapped_value - old_value) <= epsilon(old_value)) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_real64
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_real128(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        real(real128), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        real(real128), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        real(real128) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (abs(mapped_value - old_value) <= epsilon(old_value)) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_real128
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_cmplx32(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        complex(real32), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        complex(real32), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        complex(real32) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (abs(mapped_value - old_value) <= epsilon(real(0, kind=real32))) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_cmplx32
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_cmplx64(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        complex(real64), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        complex(real64), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        complex(real64) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (abs(mapped_value - old_value) <= epsilon(real(0, kind=real64))) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_cmplx64
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_cmplx128(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        complex(real128), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        complex(real128), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        complex(real128) :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (abs(mapped_value - old_value) <= epsilon(real(0, kind=real128))) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_cmplx128
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_logical(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        logical, intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        logical, intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        logical :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (mapped_value .eqv. old_value) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_logical
+
+    !>Replaces the key-value mapping
+    !>only if the key is mapped to the specific value.
+    subroutine replace_if_char(this, key, old_value, new_value, status)
+        implicit none
+        class(char_to_any_map_type), intent(inout) :: this
+            !! passed-object dummy argument
+        character(*), intent(in) :: key
+            !! the key to be replaced.
+        character(*), intent(in) :: old_value
+            !! the value currently mapped to the specified key
+        character(*), intent(in) :: new_value
+            !! the value to be mapped to the specified key
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+
+        character(:), allocatable :: mapped_value
+        character(:), allocatable :: msg
+        msg = success_status_msg
+
+        if (this%contains(key)) then
+            mapped_value = this%get(key)
+            if (all([len(mapped_value) == len(old_value), &
+                     mapped_value == old_value])) then
+                call this%replace(key, new_value, status)
+                if (error_occurred(status)) return
+            else
+                msg = err%get(err%warn_value_not_equal)
+            end if
+        else
+            msg = err%get(err%warn_not_exist)
+        end if
+
+        call set_success(status, msg)
+    end subroutine replace_if_char
 
     !>Initialize the instance of `char_to_int32_map_type`.
     subroutine initialize(this, collision_resolver, hasher, slots_bits, status)
