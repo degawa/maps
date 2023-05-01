@@ -1605,7 +1605,7 @@ contains
         call set_success(status, msg)
     end subroutine replace_if_char
 
-    !>Initialize the instance of `char_to_int32_map_type`.
+    !>Initialize the instance of `char_to_any_map_type`.
     subroutine initialize(this, collision_resolver, hasher, slots_bits, status)
         use :: maps_common_proc_initialize
         use :: maps_common_proc_factory
