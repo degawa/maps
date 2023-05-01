@@ -73,7 +73,7 @@ module maps_common_error_repository
                                             "Key-value is not replaced because the value is not equal to old value")
     type(means), parameter :: &
         warn_overflow_occured       = means(Warning_overflow_occured, &
-                                            "Overflow may occurred")
+                                            "Overflow may have occurred")
     !&>
 
     !>A repository to contain error codes and messages of maps
