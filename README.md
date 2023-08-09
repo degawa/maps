@@ -191,6 +191,26 @@ call map%put(100, 200)
 print *, map%get(100) ! 200
 ```
 
+#### bitset_to_int32_map
+The `bitset_to_int32_map_type` maps keys of the bitset types, `bitset_64` and `bitset_large`, to `integer(int32)` type values.
+
+```Fortran
+use :: maps
+implicit none
+
+type(bitset_to_int32_map_type) :: map
+type(bitset_large) :: key
+integer(int32) :: cell_id
+
+call map%initialize()
+
+call key%from_string("11100011")
+cell_id = 3
+call map%put(key, cell_id)
+
+print *, map%get(key) ! 3
+```
+
 #### note
 If the error `build\dependencies\stdlib\src\stdlib_hashmap_wrappers.f90, line 290: allocatable KEY%VALUE is not allocated` occurs when using NAG Fortran compiler, modify line 290-291 on `stdlib_hashmap_wrappers.f90` as follows:
 ```diff
