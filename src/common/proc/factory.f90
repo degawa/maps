@@ -28,6 +28,7 @@ contains
 
         case (Collision_Resolver_Open_Addressing%enum)
             allocate (open_hashmap_type :: map)
+
         case default
             call catch_error(err%unkwnon_collision_resolver, err, status)
             return

@@ -48,6 +48,7 @@ contains
 
         case (Hash_Function_WATER%enum)
             call map%init(seeded_water_hasher, slots_bits, stat)
+
         case default
             call catch_error(err%unkwnon_hash_function, err, status)
             return
@@ -67,9 +68,11 @@ contains
             case (alloc_fault)
                 call catch_error(err%error_in_hashmap_type, err, status, &
                                  append_message_task("allocation failure in init"))
+
             case (array_size_error)
                 call catch_error(err%error_in_hashmap_type, err, status, &
                                  append_message_task("incorrect slot bits"))
+
             case default
                 call catch_error(err%error_in_hashmap_type, err, status, &
                                  append_message_task("unknown error"))

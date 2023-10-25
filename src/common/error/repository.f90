@@ -107,9 +107,9 @@ contains
     function get_message(this, stat) result(msg)
         implicit none
         !&<
-        class(maps_error_type)   , intent(in) :: this
+        class(maps_error_type)  , intent(in) :: this
             !! passed-object dummy argument
-        integer(int32)              , intent(in) :: stat
+        integer(int32)          , intent(in) :: stat
             !! error status code
         !&>
         character(:), allocatable :: msg
