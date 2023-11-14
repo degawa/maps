@@ -1,8 +1,10 @@
 module maps_common_proc_key
     use, intrinsic :: iso_fortran_env
+    use :: stdlib_hashmap_wrappers, only:key_type, get
     implicit none
     private
     public :: to_settable
+    public :: to_char
 
 contains
     !>Returns the key converted to an array of 1-byte integers,
@@ -19,4 +21,16 @@ contains
 
         key_int8 = transfer(key, mold=0_int8, size=num_int8_elem)
     end function to_settable
+
+    !>Returns character converted from a key.
+    function to_char(key) result(key_as_char)
+        implicit none
+        type(key_type), intent(in) :: key
+            !! a hash key
+        character(:), allocatable :: key_as_char
+            !! a key in `character(*)`
+
+        call get(key, key_as_char)
+        key_as_char = trim(key_as_char)
+    end function to_char
 end module maps_common_proc_key
