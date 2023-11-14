@@ -4,6 +4,7 @@ module maps_common_proc_key
     implicit none
     private
     public :: to_settable
+    public :: get_byte_of_component
     public :: to_char
 
 contains
@@ -21,6 +22,17 @@ contains
 
         key_int8 = transfer(key, mold=0_int8, size=num_int8_elem)
     end function to_settable
+
+    !>Returns the byte of key's component `value`.
+    pure elemental function get_byte_of_component(key) result(value_byte)
+        implicit none
+        type(key_type), intent(in) :: key
+            !! a key
+        integer(int32) :: value_byte
+            !! byte of `key%value`
+
+        value_byte = size(key%value)
+    end function get_byte_of_component
 
     !>Returns character converted from a key.
     function to_char(key) result(key_as_char)
