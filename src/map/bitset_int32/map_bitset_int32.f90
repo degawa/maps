@@ -5,7 +5,6 @@ module map_bitset_int32
     use :: stdlib_bitsets
     use :: maps_common_proc_toHashKey
     use :: maps_common_proc_toHashValue
-    use :: maps_common_proc_key
     use :: errstat
     use :: maps_common_error_repository
     implicit none
@@ -24,6 +23,8 @@ module map_bitset_int32
         !* returns the value mapped to a key or
         !  returns the specified value as a default
         !  if the key is not contained.
+        procedure, public, pass :: all_keys
+        !* returns all the keys contained in the map
         generic :: get => get_value, get_or_default
 
         procedure, public, pass :: entries
@@ -141,6 +142,47 @@ contains
 
         call set_success(status)
     end function get_or_default
+
+    !>Returns all the keys contained in a map.
+    function all_keys(this, status) result(keys)
+        use :: maps_common_proc_key
+        use :: maps_common_error_task_appendMessage
+        implicit none
+        class(bitset_to_int32_map_type), intent(in) :: this
+            !! passed-object dummy argument
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+        type(bitset_large), allocatable :: keys(:)
+            !! all the keys contained in the map
+
+        type(key_type), allocatable :: keys_cls(:)
+        integer(int32) :: num_keys, alloc_stat, k
+        character(128) :: msg
+
+        ! getting number of entries in the map
+        num_keys = this%entries()
+        if (num_keys == 0) then
+            call catch_error(err%warn_empty_map, err, status)
+            return
+        end if
+
+        ! getting all the keys contained in the stdlib_hashmap
+        call this%map%get_all_keys(keys_cls)
+
+        ! allocating retval
+        allocate (keys(num_Keys), stat=alloc_stat, errmsg=msg)
+        if (alloc_stat /= 0) then
+            call catch_error(err%allocation_failed, err, status, &
+                             append_message_task(trim(msg)))
+            return
+        end if
+
+        do k = 1, num_keys
+            call keys(k)%from_string(to_char(keys_cls(k)))
+        end do
+
+        call set_success(status)
+    end function all_keys
 
     !>Returns the number of key-value mappings the map contains
     !>and returns the maximum value of the 32-bit integer

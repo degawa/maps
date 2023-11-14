@@ -60,6 +60,8 @@ module map_char_any
 
         procedure, public, pass :: get_value
         !* returns the value mapped to a key.
+        procedure, public, pass :: all_keys
+        !* returns all the keys contained in the map
         generic :: get => get_value
 
         procedure, public, pass :: entries
@@ -488,6 +490,51 @@ contains
 
         call set_success(status)
     end function get_value
+
+    !>Returns all the keys contained in a map.
+    function all_keys(this, status) result(keys)
+        use :: maps_common_proc_key
+        use :: maps_common_error_task_appendMessage
+        implicit none
+        class(char_to_any_map_type), intent(in) :: this
+            !! passed-object dummy argument
+        type(error_stat_type), intent(out), optional :: status
+            !! the status of the operation
+        character(:), allocatable :: keys(:)
+            !! all the keys contained in the map
+
+        type(key_type), allocatable :: keys_cls(:)
+        integer(int32) :: num_keys, len_keys, alloc_stat, k
+        character(128) :: msg
+
+        ! getting number of entries in the map
+        num_keys = this%entries()
+        if (num_keys == 0) then
+            call catch_error(err%warn_empty_map, err, status)
+            return
+        end if
+
+        ! getting all the keys contained in the stdlib_hashmap
+        call this%map%get_all_keys(keys_cls)
+
+        ! getting max byte of the component of keys and
+        ! using as the length of character strings
+        len_keys = maxval(get_byte_of_component(keys_cls))
+
+        ! allocating retval
+        allocate (character(len=len_keys) :: keys(num_Keys), stat=alloc_stat, errmsg=msg)
+        if (alloc_stat /= 0) then
+            call catch_error(err%allocation_failed, err, status, &
+                             append_message_task(trim(msg)))
+            return
+        end if
+
+        do k = 1, num_keys
+            keys(k) = to_char(keys_cls(k))
+        end do
+
+        call set_success(status)
+    end function all_keys
 
     !>Returns the number of key-value mappings the map contains
     !>and returns the maximum value of the 32-bit integer
