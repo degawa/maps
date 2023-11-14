@@ -53,7 +53,7 @@ Since maps use hashmaps in the stdlib, an environment that can build at least th
     - Intel Fortran Classic 2021.5.0 Build 20211109_000000
     - NAG Fortran 7.1 Build 7117
 - [Fortran-stdlib](https://github.com/fortran-lang/stdlib)
-- [Fortran Package Manager](https://github.com/fortran-lang/fpm) (fpm) 0.7.0 alpha
+- [Fortran Package Manager](https://github.com/fortran-lang/fpm) (fpm) 0.9.0 alpha
 
 ### Get the code
 To get the code, execute the following commnad:
