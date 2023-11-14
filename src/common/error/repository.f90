@@ -56,7 +56,7 @@ module maps_common_error_repository
                                             "Hashmap initialization failed")
     type(means), parameter :: &
         value_type_error            = means(Error_value_type_error, &
-                                            "Value type is not of the upported type")
+                                            "Value type is not of the supported type")
     type(means), parameter :: &
         allocation_failed           = means(Error_allocation_failed, &
                                             "Allocation failure")
