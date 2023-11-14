@@ -21,6 +21,7 @@ module maps_common_error_repository
         enumerator :: Warning_not_exist
         enumerator :: Warning_value_not_equal
         enumerator :: Warning_overflow_occured
+        enumerator :: Warning_empty_map
     end enum
 
     !>A type for pairing error code and message
@@ -74,6 +75,9 @@ module maps_common_error_repository
     type(means), parameter :: &
         warn_overflow_occured       = means(Warning_overflow_occured, &
                                             "Overflow may have occurred")
+    type(means), parameter :: &
+        warn_empty_map              = means(Warning_empty_map, &
+                                            "The map is empty")
     !&>
 
     !>A repository to contain error codes and messages of maps
@@ -93,6 +97,7 @@ module maps_common_error_repository
         integer(int32) :: warn_not_exist                = warn_not_exist%stat
         integer(int32) :: warn_value_not_equal          = warn_value_not_equal%stat
         integer(int32) :: warn_overflow_occured         = warn_overflow_occured%stat
+        integer(int32) :: warn_empty_map                = warn_empty_map%stat
         !&>
     contains
         procedure, public, pass :: get_message
@@ -132,6 +137,7 @@ contains
         case (warn_not_exist%stat)              ; msg = trim(warn_not_exist%msg)
         case (warn_value_not_equal%stat)        ; msg = trim(warn_value_not_equal%msg)
         case (warn_overflow_occured%stat)       ; msg = trim(warn_overflow_occured%msg)
+        case (warn_empty_map%stat)              ; msg = trim(warn_empty_map%msg)
         case default
             msg = "unkown error encountered. status code = "//stat_to_string(stat)
         end select
